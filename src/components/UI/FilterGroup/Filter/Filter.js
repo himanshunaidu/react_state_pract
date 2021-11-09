@@ -2,9 +2,10 @@ import React, { Fragment, useCallback } from "react";
 
 import Checkboxes from "./Checkboxes/Checkboxes";
 import Dropdown from "@restart/ui/esm/Dropdown";
-import filters from "../../../../data/filters";
 
 const Filter = (props) => {
+  console.log("Filter");
+
   const createFilter = useCallback((filter_obj) => {
     switch (filter_obj.input) {
       case 1:
@@ -12,7 +13,7 @@ const Filter = (props) => {
       case 2:
         return <Dropdown filter_obj={filter_obj} />;
       default:
-        return null;
+        return <div></div>;
     }
   }, []);
 
