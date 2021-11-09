@@ -6,14 +6,19 @@ import styles from "./CardsDisplay.module.css";
 const CardsDisplay = (props) => {
   return (
     <>
-      <Card className={styles.card_display} style={{ width: "18rem" }}>
+      <Card
+        className={[styles.card_display, "mb-2"].join(" ")}
+        bg="primary"
+        text="white"
+        style={{ width: "18rem" }}
+      >
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title className={styles.card_title}>Card Title</Card.Title>
           <Card.Text>
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <Button variant="light">Log Text</Button>
         </Card.Body>
       </Card>
     </>
