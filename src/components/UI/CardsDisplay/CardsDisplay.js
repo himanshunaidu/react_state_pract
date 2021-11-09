@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { Card, Button } from "react-bootstrap";
 
+import styles from "./CardsDisplay.module.css";
+
 const CardsDisplay = (props) => {
   return (
     <>
-      <Card style={{ width: "18rem" }}>
+      <Card className={styles.card_display} style={{ width: "18rem" }}>
         <Card.Body>
           <Card.Title>Card Title</Card.Title>
           <Card.Text>
