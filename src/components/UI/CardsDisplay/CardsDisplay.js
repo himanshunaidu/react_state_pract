@@ -6,7 +6,7 @@ import cardData from "../../../data/cards";
 
 const CardsDisplay = (props) => {
   return (
-    <>
+    <div className={[styles.container].join(" ")}>
       {cardData.map((data, index) => {
         return (
           <Card
@@ -26,7 +26,7 @@ const CardsDisplay = (props) => {
           </Card>
         );
       })}
-    </>
+    </div>
   );
 };
 
