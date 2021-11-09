@@ -1,0 +1,8 @@
+.container {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: [first] 25% [second] auto;
+  column-gap: 1em;
+  justify-items: start;
+  align-items: start;
+}
