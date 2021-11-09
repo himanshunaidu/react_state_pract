@@ -1,4 +1,5 @@
 const versions = {
+  id: 1,
   input: 1, //1: Checkboxes, 2: Multi-Select Dropdown
   title: "Version",
   filters: [
@@ -8,6 +9,7 @@ const versions = {
 };
 
 const languages = {
+  id: 2,
   input: 1,
   title: "Language",
   filters: [

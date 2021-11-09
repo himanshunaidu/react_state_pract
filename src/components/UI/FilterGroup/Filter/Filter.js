@@ -4,9 +4,8 @@ import Checkboxes from "./Checkboxes/Checkboxes";
 import Dropdown from "@restart/ui/esm/Dropdown";
 
 const Filter = (props) => {
-  console.log("Filter");
-
   const createFilter = useCallback((filter_obj) => {
+    console.log(filter_obj.input);
     switch (filter_obj.input) {
       case 1:
         return <Checkboxes filter_obj={filter_obj} />;
