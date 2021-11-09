@@ -17,3 +17,5 @@ const CardsDisplay = (props) => {
     </>
   );
 };
+
+export default CardsDisplay;
