@@ -28,7 +28,7 @@ const Block = (props) => {
           }}
         >
           <Pagination
-            activePage={1}
+            activePage={6}
             totalItemsCount={cardData.length}
             itemsCountPerPage={2}
             pageRangeDisplayed={3}
