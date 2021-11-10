@@ -20,24 +20,21 @@ const Block = (props) => {
   const [selectedFilters, setSelectedFilters] = useState(
     initializeSelectedFilters()
   );
+  console.log(selectedFilters);
   const [activePage, setActivePage] = useState(1);
 
-  const filterChanged = useCallback(
-    (filter_key, filter_id) => {
-      console.log(selectedFilters, filter_key, filter_id);
-      setSelectedFilters((sf) => {
-        const newSF = { ...sf };
-        const newSFSet = newSF[filter_key];
-        if (newSFSet.has(filter_id)) {
-          newSFSet.delete(filter_id);
-        } else {
-          newSFSet.add(filter_id);
-        }
-        return newSF;
-      });
-    },
-    [selectedFilters]
-  );
+  const filterChanged = useCallback((filter_key, filter_id) => {
+    setSelectedFilters((sf) => {
+      const newSFSet = new Set(sf[filter_key]);
+      if (newSFSet.has(filter_id)) {
+        newSFSet.delete(filter_id);
+      } else {
+        newSFSet.add(filter_id);
+      }
+      const newSF = { ...sf, [filter_key]: newSFSet };
+      return newSF;
+    });
+  }, []);
 
   const pageChanged = useCallback((page) => {
     setActivePage(page);

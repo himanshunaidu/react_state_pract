@@ -7,7 +7,7 @@ import Dropdown from "@restart/ui/esm/Dropdown";
 const Filter = (props) => {
   const { filter_key, filter_obj, selectedFilterSet, onFilterClick } = props;
 
-  const createFilter = useCallback(() => {
+  const createFilter = () => {
     switch (filter_obj.input) {
       case 1:
         return (
@@ -30,9 +30,9 @@ const Filter = (props) => {
       default:
         return <div></div>;
     }
-  }, [filter_key, filter_obj, selectedFilterSet, onFilterClick]);
+  };
 
-  return createFilter(props.filter_obj);
+  return createFilter();
 };
 
 Filter.propTypes = {
