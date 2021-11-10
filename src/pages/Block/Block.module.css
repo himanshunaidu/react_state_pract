@@ -1,8 +1,17 @@
 .container {
   margin-top: 1em;
   display: grid;
-  grid-template-columns: [first] 25% [second] auto;
+  grid-template-columns: [first-col] 20% [second-col] auto [last-col];
   column-gap: 1em;
+  justify-items: start;
+  align-items: start;
+}
+
+.card_container {
+  margin-top: 1em;
+  display: grid;
+  grid-template-rows: [first-row] auto [second-row] 10% [last-row];
+  row-gap: 0.1em;
   justify-items: start;
   align-items: start;
 }

@@ -8,11 +8,17 @@ import CardsDisplay from "../../components/UI/CardsDisplay/CardsDisplay";
 const Block = (props) => {
   return (
     <Container className={styles.container} fluid>
-      <div style={{ gridColumn: "first / second" }}>
+      <div style={{ gridColumn: "first-col / second-col" }}>
         <FilterGroup></FilterGroup>
       </div>
-      <div style={{ gridColumn: "second / auto" }}>
-        <CardsDisplay></CardsDisplay>
+      <div
+        className={styles.card_container}
+        style={{ gridColumn: "second-col / auto" }}
+      >
+        <div style={{ gridRow: "first-row / auto" }}>
+          <CardsDisplay></CardsDisplay>
+        </div>
+        <div style={{ gridRow: "second-row / last-row" }}></div>
       </div>
     </Container>
   );
