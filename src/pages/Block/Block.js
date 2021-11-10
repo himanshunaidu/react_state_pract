@@ -22,14 +22,35 @@ const Block = (props) => {
   );
   const [activePage, setActivePage] = useState(1);
 
-  const selectionChanged = useCallback((page) => {
+  const filterChanged = useCallback(
+    (filter_key, filter_id) => {
+      console.log(selectedFilters, filter_key, filter_id);
+      setSelectedFilters((sf) => {
+        const newSF = { ...sf };
+        const newSFSet = newSF[filter_key];
+        if (newSFSet.has(filter_id)) {
+          newSFSet.delete(filter_id);
+        } else {
+          newSFSet.add(filter_id);
+        }
+        return newSF;
+      });
+    },
+    [selectedFilters]
+  );
+
+  const pageChanged = useCallback((page) => {
     setActivePage(page);
   }, []);
 
   return (
     <Container className={styles.container} fluid>
       <div style={{ gridColumn: "first-col / second-col" }}>
-        <FilterGroup></FilterGroup>
+        <FilterGroup
+          filters={filters}
+          selectedFilters={selectedFilters}
+          onFilterClick={filterChanged}
+        ></FilterGroup>
       </div>
       <div
         className={styles.card_container}
@@ -50,7 +71,7 @@ const Block = (props) => {
             totalItemsCount={cardData.length}
             itemsCountPerPage={2}
             pageRangeDisplayed={3}
-            onPageClick={selectionChanged}
+            onPageClick={pageChanged}
           ></Pagination>
         </Container>
       </div>
