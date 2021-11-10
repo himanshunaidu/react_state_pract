@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import styles from "./Block.module.css";
 import FilterGroup from "../../components/UI/FilterGroup/FilterGroup";
 import CardsDisplay from "../../components/UI/CardsDisplay/CardsDisplay";
+import Pagination from "../../components/UI/Pagination/Pagination";
 
 const Block = (props) => {
   return (
@@ -18,7 +19,20 @@ const Block = (props) => {
         <div style={{ gridRow: "first-row / auto" }}>
           <CardsDisplay></CardsDisplay>
         </div>
-        <div style={{ gridRow: "second-row / last-row" }}></div>
+        <Container
+          style={{
+            gridRow: "second-row / last-row",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Pagination
+            activePage={1}
+            totalItemsCount={5}
+            itemsCountPerPage={2}
+            pageRangeDisplayed={3}
+          ></Pagination>
+        </Container>
       </div>
     </Container>
   );
