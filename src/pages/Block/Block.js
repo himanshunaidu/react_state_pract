@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useReducer } from "react";
+import React, { Fragment, useState, useReducer, useCallback } from "react";
 import { Container } from "react-bootstrap";
 
 import styles from "./Block.module.css";
@@ -8,6 +8,12 @@ import Pagination from "../../components/UI/Pagination/Pagination";
 import cardData from "../../data/cards";
 
 const Block = (props) => {
+  const [activePage, setActivePage] = useState(1);
+
+  const selectionChanged = useCallback((page) => {
+    setActivePage(page);
+  }, []);
+
   return (
     <Container className={styles.container} fluid>
       <div style={{ gridColumn: "first-col / second-col" }}>
@@ -28,10 +34,11 @@ const Block = (props) => {
           }}
         >
           <Pagination
-            activePage={6}
+            activePage={activePage}
             totalItemsCount={cardData.length}
             itemsCountPerPage={2}
             pageRangeDisplayed={3}
+            onPageClick={selectionChanged}
           ></Pagination>
         </Container>
       </div>

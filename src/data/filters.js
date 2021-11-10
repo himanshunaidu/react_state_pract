@@ -18,4 +18,6 @@ const languages = {
   ],
 };
 
-export default { versions: versions, languages: languages };
+const filters = { versions: versions, languages: languages };
+
+export default filters;
