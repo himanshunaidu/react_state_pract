@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 import styles from "./CardsDisplay.module.css";
-import cardData from "../../../data/cards";
 
 const CardsDisplay = (props) => {
   return (
     <div className={[styles.container].join(" ")}>
-      {cardData.map((data, index) => {
+      {props.cardData.map((data, index) => {
         return (
           <Card
             className={[styles.card_display, "mb-2"].join(" ")}
@@ -21,6 +21,7 @@ const CardsDisplay = (props) => {
                 {data.title}
               </Card.Title>
               <Card.Text>{data.text}</Card.Text>
+              <Card.Text>Version: {data.version}</Card.Text>
               <Button variant="light">Log Text</Button>
             </Card.Body>
           </Card>
@@ -28,6 +29,10 @@ const CardsDisplay = (props) => {
       })}
     </div>
   );
+};
+
+CardsDisplay.propTypes = {
+  cardData: PropTypes.array.isRequired,
 };
 
 export default CardsDisplay;

@@ -5,6 +5,7 @@ import styles from "./Block.module.css";
 import FilterGroup from "../../components/UI/FilterGroup/FilterGroup";
 import CardsDisplay from "../../components/UI/CardsDisplay/CardsDisplay";
 import Pagination from "../../components/UI/Pagination/Pagination";
+import cardData from "../../data/cards";
 
 const Block = (props) => {
   return (
@@ -17,7 +18,7 @@ const Block = (props) => {
         style={{ gridColumn: "second-col / auto" }}
       >
         <div style={{ gridRow: "first-row / auto" }}>
-          <CardsDisplay></CardsDisplay>
+          <CardsDisplay cardData={cardData}></CardsDisplay>
         </div>
         <Container
           style={{
@@ -28,7 +29,7 @@ const Block = (props) => {
         >
           <Pagination
             activePage={1}
-            totalItemsCount={5}
+            totalItemsCount={cardData.length}
             itemsCountPerPage={2}
             pageRangeDisplayed={3}
           ></Pagination>

@@ -34,6 +34,20 @@ const cardData = [
     version: 2,
     lang: 1,
   },
+  {
+    id: "6",
+    title: "Card 6",
+    text: "This is the sixth card",
+    version: 1,
+    lang: 1,
+  },
+  {
+    id: "7",
+    title: "Card 7",
+    text: "This is the seventh card",
+    version: 2,
+    lang: 1,
+  },
 ];
 
 export default cardData;
