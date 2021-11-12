@@ -1,4 +1,10 @@
-import React, { Fragment, useState, useReducer, useCallback } from "react";
+import React, {
+  Fragment,
+  useState,
+  useReducer,
+  useCallback,
+  useEffect,
+} from "react";
 import { Container } from "react-bootstrap";
 
 import styles from "./Block.module.css";
@@ -20,8 +26,10 @@ const Block = (props) => {
   const [selectedFilters, setSelectedFilters] = useState(
     initializeSelectedFilters()
   );
-  console.log(selectedFilters);
   const [activePage, setActivePage] = useState(1);
+  const [curCards, setCurCards] = useState(cardData);
+  const itemsCountPerPage = 2;
+  const pageRangeDisplayed = 3;
 
   const filterChanged = useCallback((filter_key, filter_id) => {
     setSelectedFilters((sf) => {
@@ -37,8 +45,28 @@ const Block = (props) => {
   }, []);
 
   const pageChanged = useCallback((page) => {
+    console.log(activePage);
     setActivePage(page);
   }, []);
+
+  useEffect(() => {
+    const newCurCards = cardData.filter((card) => {
+      let flag = true;
+      Object.keys(selectedFilters).forEach((filter_key) => {
+        const filterSet = selectedFilters[filter_key];
+        if (filterSet.size === 0) {
+          return true;
+        }
+        if (!filterSet.has(card[filter_key])) {
+          flag = false;
+        }
+      });
+      return flag;
+    });
+    const start = itemsCountPerPage * activePage;
+    const end = Math.min(start + itemsCountPerPage, newCurCards.length);
+    setCurCards(newCurCards.slice(start, end));
+  }, [selectedFilters]);
 
   return (
     <Container className={styles.container} fluid>
@@ -54,7 +82,7 @@ const Block = (props) => {
         style={{ gridColumn: "second-col / auto" }}
       >
         <div style={{ gridRow: "first-row / auto" }}>
-          <CardsDisplay cardData={cardData}></CardsDisplay>
+          <CardsDisplay cardData={curCards}></CardsDisplay>
         </div>
         <Container
           style={{
@@ -65,9 +93,9 @@ const Block = (props) => {
         >
           <Pagination
             activePage={activePage}
-            totalItemsCount={cardData.length}
-            itemsCountPerPage={2}
-            pageRangeDisplayed={3}
+            totalItemsCount={curCards.length}
+            itemsCountPerPage={itemsCountPerPage}
+            pageRangeDisplayed={pageRangeDisplayed}
             onPageClick={pageChanged}
           ></Pagination>
         </Container>

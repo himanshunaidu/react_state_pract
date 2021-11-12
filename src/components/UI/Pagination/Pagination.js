@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { Pagination as RBPagination } from "react-bootstrap";
 
@@ -12,6 +12,7 @@ const Pagination = (props) => {
   } = props;
 
   const totalPages = Math.ceil(totalItemsCount / itemsCountPerPage);
+  const [pageItems, setPageItems] = useState([]);
 
   const getPageRange = useCallback(() => {
     if (activePage > totalPages) {

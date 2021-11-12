@@ -7,7 +7,7 @@ import Filter from "./Filter/Filter";
 
 const FilterGroup = (props) => {
   const { filters, selectedFilters, onFilterClick } = props;
-  console.log(selectedFilters);
+  // console.log(selectedFilters);
 
   const filter_view = (
     <Container className={styles.container}>
