@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
-import { Pagination as RBPagination } from "react-bootstrap";
+// import { Pagination as RBPagination } from "react-bootstrap";
+import ReactPaginate from "react-paginate";
 
 const Pagination = (props) => {
   const {
@@ -11,59 +12,29 @@ const Pagination = (props) => {
     onPageClick,
   } = props;
 
-  const totalPages = Math.ceil(totalItemsCount / itemsCountPerPage);
-  const [pageItems, setPageItems] = useState([]);
-
-  const getPageRange = useCallback(() => {
-    if (activePage > totalPages) {
-      return [activePage];
-    }
-
-    const firstPage = Math.max(0, activePage - pageRangeDisplayed) + 1;
-    const remainingPages = pageRangeDisplayed - (activePage - firstPage + 1);
-
-    const pages = [];
-    for (let i = firstPage; i <= activePage; i++) pages.push(i);
-    for (let i = 1; i <= remainingPages; i++) pages.push(activePage + i);
-    return pages;
-  }, [activePage, totalPages, pageRangeDisplayed]);
-
-  const pages = getPageRange();
-
-  const createPages = useCallback(() => {
-    const items = [];
-    pages.forEach((num) => {
-      items.push(
-        <RBPagination.Item
-          key={num}
-          active={num === activePage}
-          onClick={() => onPageClick(num)}
-        >
-          {num}
-        </RBPagination.Item>
-      );
-    });
-    return items;
-  }, [activePage, onPageClick, pages]);
+  const pageCount = Math.ceil(totalItemsCount / itemsCountPerPage);
+  console.log(pageCount, totalItemsCount, itemsCountPerPage);
 
   return (
-    <>
-      <RBPagination>
-        <RBPagination.First onClick={() => onPageClick(1)} />
-        <RBPagination.Prev
-          onClick={() => onPageClick(Math.max(activePage - 1), 1)}
-        />
-        {pages.length > 0 && pages[0] > 1 ? <RBPagination.Ellipsis /> : null}
-        {createPages()}
-        {pages.length > 0 && pages[pages.length - 1] < totalPages ? (
-          <RBPagination.Ellipsis />
-        ) : null}
-        <RBPagination.Next
-          onClick={() => onPageClick(Math.min(activePage + 1, totalPages))}
-        />
-        <RBPagination.Last onClick={() => onPageClick(totalPages)} />
-      </RBPagination>
-    </>
+    <ReactPaginate
+      previousLabel="PREV"
+      nextLabel="NEXT"
+      pageClassName="page-item"
+      pageLinkClassName="page-link"
+      previousClassName="page-item"
+      previousLinkClassName="page-link"
+      nextClassName="page-item"
+      nextLinkClassName="page-link"
+      breakLabel="..."
+      breakClassName="page-item"
+      breakLinkClassName="page-link"
+      pageCount={pageCount}
+      pageRangeDisplayed={pageRangeDisplayed}
+      onPageChange={onPageClick}
+      containerClassName="pagination"
+      activeClassName="active"
+      forcePage={activePage}
+    ></ReactPaginate>
   );
 };
 

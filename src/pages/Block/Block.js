@@ -26,10 +26,12 @@ const Block = (props) => {
   const [selectedFilters, setSelectedFilters] = useState(
     initializeSelectedFilters()
   );
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState(0);
   const [curCards, setCurCards] = useState(cardData);
   const itemsCountPerPage = 2;
   const pageRangeDisplayed = 3;
+  const start = itemsCountPerPage * activePage;
+  const end = Math.min(start + itemsCountPerPage, curCards.length);
 
   const filterChanged = useCallback((filter_key, filter_id) => {
     setSelectedFilters((sf) => {
@@ -45,8 +47,8 @@ const Block = (props) => {
   }, []);
 
   const pageChanged = useCallback((page) => {
-    console.log(activePage);
-    setActivePage(page);
+    console.log(page);
+    setActivePage(page.selected);
   }, []);
 
   useEffect(() => {
@@ -63,9 +65,8 @@ const Block = (props) => {
       });
       return flag;
     });
-    const start = itemsCountPerPage * activePage;
-    const end = Math.min(start + itemsCountPerPage, newCurCards.length);
-    setCurCards(newCurCards.slice(start, end));
+    setCurCards(newCurCards);
+    setActivePage(0);
   }, [selectedFilters]);
 
   return (
@@ -77,29 +78,33 @@ const Block = (props) => {
           onFilterClick={filterChanged}
         ></FilterGroup>
       </div>
-      <div
-        className={styles.card_container}
-        style={{ gridColumn: "second-col / auto" }}
-      >
-        <div style={{ gridRow: "first-row / auto" }}>
-          <CardsDisplay cardData={curCards}></CardsDisplay>
-        </div>
-        <Container
-          style={{
-            gridRow: "second-row / last-row",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
+      {curCards.length === 0 ? (
+        <p>No Cards to Display</p>
+      ) : (
+        <div
+          className={styles.card_container}
+          style={{ gridColumn: "second-col / auto" }}
         >
-          <Pagination
-            activePage={activePage}
-            totalItemsCount={curCards.length}
-            itemsCountPerPage={itemsCountPerPage}
-            pageRangeDisplayed={pageRangeDisplayed}
-            onPageClick={pageChanged}
-          ></Pagination>
-        </Container>
-      </div>
+          <div style={{ gridRow: "first-row / auto" }}>
+            <CardsDisplay cardData={curCards.slice(start, end)}></CardsDisplay>
+          </div>
+          <Container
+            style={{
+              gridRow: "second-row / last-row",
+              display: "flex",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Pagination
+              activePage={activePage}
+              totalItemsCount={curCards.length}
+              itemsCountPerPage={itemsCountPerPage}
+              pageRangeDisplayed={pageRangeDisplayed}
+              onPageClick={pageChanged}
+            ></Pagination>
+          </Container>
+        </div>
+      )}
     </Container>
   );
 };
